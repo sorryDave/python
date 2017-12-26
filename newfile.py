@@ -13,13 +13,28 @@ file_mode_list = ['w', 'r', 'a']
 ###############################################################
 
 
-# placeholder
-#def show(file_name, file_mode):
-#    fmode = mode(file_mode)
-#    if file_mode in file_mode_list:
-#        print("\nfile: {}\nmode: {}, {}".format(repr(file_name), file_mode, fmode))
-#    else:
-#        print("\n{} is not included".format(file_mode))
+##############################################################
+# Open a file
+#fo = open("foo.txt", "r+")
+#str = fo.read(10)
+#print ("Read String is : ", str)
+#
+# Check current position
+#position = fo.tell()
+#print ("Current file position : ", position)
+#
+# Reposition pointer at the beginning once again
+#position = fo.seek(0, 0)
+#str = fo.read(10)
+#print ("Again read String is : ", str)
+# Tells the file's position
+#str = fo.tell()
+
+# Close opened file
+#fo.close()
+
+
+
 
 # menu functions***************************************************
 def menu(file_name, file_mode):
@@ -34,6 +49,8 @@ def menu(file_name, file_mode):
         erase_file(file_name)
     elif file_mode == 'd':
         delete_file(file_name)
+    elif file_mode == 'rename':
+        rename_file(file_name)
 
 
 def print_menu():
@@ -46,8 +63,9 @@ def print_menu():
         2. erase file
         3. Add to existing File
         4. Read file
-        5. Delete file
-        6. quit
+        5. Rename file
+        6. Delete file
+        7. quit
         
         """
     )
@@ -106,9 +124,15 @@ def erase_file(file_name):
     f =  open(file_name, 'w')
     f.close()
 
-def delete_file(file_name):
-    pass
 
+def rename_file(file_name):
+    new_name = input('     New name, please: ')
+    #comprobar que no existe ese nombre
+    os.rename(file_name, new_name)
+
+def delete_file(file_name):
+    #condicion para avisar opcion
+    os.remove(file_name)
 
 def scan_dir():
     pass
@@ -153,8 +177,11 @@ def main_p():
             menu(name, 'r')
         elif option == '5':
             name = input('name: ')
-            menu(name, 'd')
+            menu(name, 'rename')
         elif option == '6':
+            name = input('name: ')
+            menu(name, 'd')
+        elif option == '7':
             print('exit program')
             while True:
                 opt = input('are you sure [y/n] ')

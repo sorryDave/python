@@ -3,6 +3,15 @@ import os
 # file_name = ' '
 file_mode_list = ['w', 'r', 'a']
 
+################################################################
+# Open a file
+#fo = open("foo.txt", "wb")
+#print ("Name of the file: ", fo.name)
+#print ("Closed or not : ", fo.closed)
+#print ("Opening mode : ", fo.mode)
+#fo.close()
+###############################################################
+
 
 # placeholder
 #def show(file_name, file_mode):
@@ -21,7 +30,10 @@ def menu(file_name, file_mode):
         read_file(file_name)
     elif file_mode == 'a':
         append_file(file_name)
-        return 'append'
+    elif file_mode == 'e':
+        erase_file(file_name)
+    elif file_mode == 'd':
+        delete_file(file_name)
 
 
 def print_menu():
@@ -31,9 +43,11 @@ def print_menu():
         ___________________
     
         1. New File
-        2. Add to existing File
-        3. Read file
-        4. quit
+        2. erase file
+        3. Add to existing File
+        4. Read file
+        5. Delete file
+        6. quit
         
         """
     )
@@ -46,7 +60,7 @@ def create_file(file_name):
     for entry in scandir:
         if entry.name == file_name:
             print("\n\n\t found file with the same name: '{}' \n\n stop process".format(file_name))
-    print("Escriba su texto:\n")
+    print("\nEscriba su texto: ")
     with open(file_name, 'w') as file:
         text = take_input()
         file.write(text)
@@ -60,14 +74,12 @@ def read_file(file_name):
     for entry in scandir:
         if entry.name == file_name:
             print("\n\n\t found file with the same name: '{}'".format(file_name))
-    print("Escriba su texto:\n")
     with open(file_name, 'r') as file:
         text = file.read()
         print(text)
     #return text
 
-        
-# appen no funciona. escribe sin salto de linea
+
 def append_file(file_name):
     # get working directory
     path = os.getcwd()
@@ -76,13 +88,25 @@ def append_file(file_name):
     for entry in scandir:
         if entry.name == file_name:
             print("\n\n\t found file with the same name: '{}'".format(file_name))
-    print("Escriba su texto:\n")
+    print("\nEscriba su texto: ")
     with open(file_name, 'a') as file:
         text = take_input()
-        file.write(text)
+        file.write("\n" + text)
     return text
 
-def delete_file():
+def erase_file(file_name):
+    # get working directory
+    path = os.getcwd()
+    # scan dir
+    scandir = os.scandir(path)
+    for entry in scandir:
+        if entry.name == file_name:
+            print("\n\n\t found file with the same name: '{}' \n\n stop process".format(file_name))
+    print("\nEscriba su texto: ")
+    f =  open(file_name, 'w')
+    f.close()
+
+def delete_file(file_name):
     pass
 
 
@@ -120,11 +144,17 @@ def main_p():
             menu(name, 'w')
         elif option == '2':
             name = input('name: ')
-            menu(name, 'a')
+            menu(name, 'e')
         elif option == '3':
             name = input('name: ')
-            menu(name, 'r')
+            menu(name, 'a')
         elif option == '4':
+            name = input('name: ')
+            menu(name, 'r')
+        elif option == '5':
+            name = input('name: ')
+            menu(name, 'd')
+        elif option == '6':
             print('exit program')
             while True:
                 opt = input('are you sure [y/n] ')
@@ -137,7 +167,3 @@ def main_p():
 
 
 main_p()
-# menu('newf.txt', 'w')
-# menu('newf.txt','r')
-# menu('newf.txt','a')
-# menu('newf.txt','nx')

@@ -4,23 +4,6 @@ import os
 file_mode_list = ['w', 'r', 'a']
 
 
-# menu functions***************************************************
-def menu(file_name, file_mode):
-    # show(file_name, file_mode)
-    if file_mode == 'w':
-        create_file(file_name)
-    elif file_mode == 'r':
-        read_file(file_name)
-    elif file_mode == 'a':
-        append_file(file_name)
-    elif file_mode == 'e':
-        erase_file(file_name)
-    elif file_mode == 'd':
-        delete_file(file_name)
-    elif file_mode == 'rename':
-        rename_file(file_name)
-
-
 def print_menu():
     print(
         """
@@ -33,6 +16,7 @@ def print_menu():
         4. Read file
         5. Rename file
         6. Delete file
+        7. list files
         7. quit
 
         """
@@ -109,6 +93,12 @@ def delete_file(file_name):
     else:
         print("\n\n\tfile '{}' not found".format(file_name))
 
+def list_files():
+    path = os.getcwd()
+    scandir = os.scandir(path)
+    for entry in scandir:
+        if entry.is_file():
+            print("\t\t{}".format(entry.name))
 
 def scan_dir(file_name):
     path = os.getcwd()
@@ -149,23 +139,25 @@ def main_p():
         option = input("option: ")
         if option in ['1','n','new']:
             name = input('name: ')
-            menu(name, 'w')
+            create_file(name)
         elif option in ['2', 'e', 'erase']:
             name = input('name: ')
-            menu(name, 'e')
+            erase_file(name)
         elif option in ['3', 'a', 'add']:
             name = input('name: ')
-            menu(name, 'a')
+            append_file(name)
         elif option in ['4','read']:
             name = input('name: ')
-            menu(name, 'r')
+            read_file(name)
         elif option in ['5','rename']:
             name = input('name: ')
-            menu(name, 'rename')
-        elif option in ['6', 'd','delete']:
+            rename_file(name)
+        elif option in ['6', 'd', 'del', 'delete']:
             name = input('name: ')
-            menu(name, 'd')
-        elif option in ['7','q','quit']:
+            delete_file(name)
+        elif option in ['7', 'list']:
+            list_files()
+        elif option in ['8','q','quit']:
             print('exit program')
             while True:
                 opt = input('are you sure [y/n] ')

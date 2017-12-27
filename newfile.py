@@ -1,5 +1,9 @@
 import os
 
+term_size = os.get_terminal_size()
+term_lines = term_size.lines
+
+
 def print_menu():
     print(
         """

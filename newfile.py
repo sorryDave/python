@@ -1,15 +1,11 @@
 import os
 
-# file_name = ' '
-file_mode_list = ['w', 'r', 'a']
-
-
 def print_menu():
     print(
         """
         MENU
         ___________________
-
+ 
         1. New File
         2. erase file
         3. Add to existing File
@@ -18,11 +14,11 @@ def print_menu():
         6. Delete file
         7. list files
         7. quit
-
+ 
         """
     )
-
-
+ 
+ 
 # main create / write / delete / append / quit functions
 def create_file(file_name):
     file_exists = scan_dir(file_name)
@@ -33,19 +29,22 @@ def create_file(file_name):
             file.write(text)
     else:
         print("File Exists")
-
-
+ 
+ 
 def read_file(file_name):
     file_exits = scan_dir(file_name)
     if file_exits:
         print("\n\n\t found file with the same name: '{}'".format(file_name))
         with open(file_name, 'r') as file:
             text = file.read()
-            print("text:\n\t{}".format(text))
+            if len(text)==0:
+            	print('\n\t\tEmpty file')
+            else:
+            	print("\ntext:\n\t{}".format(text))
     else:
         print("can't reach file")
-
-
+ 
+ 
 def append_file(file_name):
     # get working directory
     path = os.getcwd()
@@ -59,8 +58,8 @@ def append_file(file_name):
         text = take_input()
         file.write("\n" + text)
     return text
-
-
+ 
+ 
 def erase_file(file_name):
     # get working directory
     path = os.getcwd()
@@ -72,8 +71,8 @@ def erase_file(file_name):
     print("\nEscriba su texto: ")
     f = open(file_name, 'w')
     f.close()
-
-
+ 
+ 
 def rename_file(file_name):
     file_exists = scan_dir(file_name)
     if file_exists:
@@ -82,8 +81,8 @@ def rename_file(file_name):
         os.rename(file_name, new_name)
     else:
         print("\n\n\tfile '{}' not found".format(file_name))
-
-
+ 
+ 
 def delete_file(file_name):
     file_exists = scan_dir(file_name)
     # condicion para avisar opcion
@@ -92,24 +91,24 @@ def delete_file(file_name):
         os.remove(file_name)
     else:
         print("\n\n\tfile '{}' not found".format(file_name))
-
+ 
 def list_files():
     path = os.getcwd()
     scandir = os.scandir(path)
     for entry in scandir:
         if entry.is_file():
             print("\t\t{}".format(entry.name))
-
+ 
 def scan_dir(file_name):
     path = os.getcwd()
     # scan dir
     scandir = os.scandir(path)
     opt = [True for entry in scandir if entry.name == file_name]
     opt = bool(opt)
-
+ 
     return opt
-
-
+ 
+ 
 # functiones***********************************************************************
 def mode(mode):
     if mode == 'w':
@@ -118,8 +117,8 @@ def mode(mode):
         return 'read'
     elif mode == 'a':
         return 'append'
-
-
+ 
+ 
 def take_input():
     lines_ary = []
     while True:
@@ -130,8 +129,8 @@ def take_input():
             break
     text = '\n'.join(lines_ary)
     return text
-
-
+ 
+ 
 # main**************************************************************
 def main_p():
     while True:
@@ -167,6 +166,6 @@ def main_p():
                     break
                 else:
                     print("no valid")
-
-
+ 
+ 
 main_p()

@@ -1,2 +1,2 @@
 # python
-python chorradas
+python chorradas y con acceso con terminal

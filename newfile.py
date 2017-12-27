@@ -71,32 +71,25 @@ def print_menu():
     )
 # main create / write / delete / append / quit functions
 def create_file(file_name):
-    # get working directory
-    path = os.getcwd()
-    # scan dir
-    scandir = os.scandir(path)
-    for entry in scandir:
-        if entry.name == file_name:
-            print("\n\n\t found file with the same name: '{}' \n\n stop process".format(file_name))
-    print("\nEscriba su texto: ")
-    with open(file_name, 'w') as file:
-        text = take_input()
-        file.write(text)
-    return text
+    file_exists = scan_dir(file_name)
+    if not file_exists:
+        print("\nEscriba su texto: ")
+        with open(file_name, 'w') as file:
+            text = take_input()
+            file.write(text)
+    else:
+        print("File Exists")
+
 
 def read_file(file_name):
-    # get working directory
-    path = os.getcwd()
-    # scan dir
-    scandir = os.scandir(path)
-    for entry in scandir:
-        if entry.name == file_name:
-            print("\n\n\t found file with the same name: '{}'".format(file_name))
-    with open(file_name, 'r') as file:
-        text = file.read()
-        print(text)
-    #return text
-
+    file_exits = scan_dir(file_name)
+    if file_exits:
+        print("\n\n\t found file with the same name: '{}'".format(file_name))
+        with open(file_name, 'r') as file:
+            text = file.read()
+            print("text:\n\t{}".format(text))
+    else:
+        print("can't reach file")
 
 def append_file(file_name):
     # get working directory
@@ -126,16 +119,35 @@ def erase_file(file_name):
 
 
 def rename_file(file_name):
-    new_name = input('     New name, please: ')
-    #comprobar que no existe ese nombre
-    os.rename(file_name, new_name)
+    file_exists = scan_dir(file_name)
+    if file_exists:
+        print("\n\n\t found file: '{}' \n\n renaming".format(file_name))
+        new_name = input('     New name, please: ')
+        os.rename(file_name, new_name)
+    else:
+        print("\n\n\tfile '{}' not found".format(file_name))
+
 
 def delete_file(file_name):
+    file_exists = scan_dir(file_name)
     #condicion para avisar opcion
-    os.remove(file_name)
+    if file_exists:
+        print("\n\n\t found file: '{}' \n\n deleting".format(file_name))
+        os.remove(file_name)
+    else:
+        print("\n\n\tfile '{}' not found".format(file_name))
 
-def scan_dir():
-    pass
+
+def scan_dir(file_name):
+    path = os.getcwd()
+    # scan dir
+    scandir = os.scandir(path)
+    opt = [True for entry in scandir if entry.name == file_name]
+    opt = bool(opt)
+
+    return opt
+
+
 
 
 # functiones***********************************************************************

@@ -2,11 +2,14 @@ import os
 
 term_size = os.get_terminal_size()
 term_lines = term_size.lines
+half_screen = int(term_lines/2)
+
+def printlines():
+	print(term_lines)
 
 
-def print_menu():
-    print(
-        """
+
+text_menu = """
         MENU
         ___________________
  
@@ -17,10 +20,17 @@ def print_menu():
         5. Rename file
         6. Delete file
         7. list files
-        7. quit
+        8. quit
  
         """
-    )
+
+def print_space():
+    for line in range(half_screen):
+        print(' ')
+
+def print_menu():
+    print_space()
+    print(text_menu)
  
  
 # main create / write / delete / append / quit functions
@@ -160,6 +170,8 @@ def main_p():
             delete_file(name)
         elif option in ['7', 'list']:
             list_files()
+        elif option in ['space']:
+            print_space()
         elif option in ['8','q','quit']:
             print('exit program')
             while True:

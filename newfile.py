@@ -3,38 +3,6 @@ import os
 # file_name = ' '
 file_mode_list = ['w', 'r', 'a']
 
-################################################################
-# Open a file
-#fo = open("foo.txt", "wb")
-#print ("Name of the file: ", fo.name)
-#print ("Closed or not : ", fo.closed)
-#print ("Opening mode : ", fo.mode)
-#fo.close()
-###############################################################
-
-
-##############################################################
-# Open a file
-#fo = open("foo.txt", "r+")
-#str = fo.read(10)
-#print ("Read String is : ", str)
-#
-# Check current position
-#position = fo.tell()
-#print ("Current file position : ", position)
-#
-# Reposition pointer at the beginning once again
-#position = fo.seek(0, 0)
-#str = fo.read(10)
-#print ("Again read String is : ", str)
-# Tells the file's position
-#str = fo.tell()
-
-# Close opened file
-#fo.close()
-
-
-
 
 # menu functions***************************************************
 def menu(file_name, file_mode):

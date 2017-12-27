@@ -6,7 +6,7 @@ file_mode_list = ['w', 'r', 'a']
 
 # menu functions***************************************************
 def menu(file_name, file_mode):
-    #show(file_name, file_mode)
+    # show(file_name, file_mode)
     if file_mode == 'w':
         create_file(file_name)
     elif file_mode == 'r':
@@ -26,7 +26,7 @@ def print_menu():
         """
         MENU
         ___________________
-    
+
         1. New File
         2. erase file
         3. Add to existing File
@@ -34,9 +34,11 @@ def print_menu():
         5. Rename file
         6. Delete file
         7. quit
-        
+
         """
     )
+
+
 # main create / write / delete / append / quit functions
 def create_file(file_name):
     file_exists = scan_dir(file_name)
@@ -59,6 +61,7 @@ def read_file(file_name):
     else:
         print("can't reach file")
 
+
 def append_file(file_name):
     # get working directory
     path = os.getcwd()
@@ -73,6 +76,7 @@ def append_file(file_name):
         file.write("\n" + text)
     return text
 
+
 def erase_file(file_name):
     # get working directory
     path = os.getcwd()
@@ -82,7 +86,7 @@ def erase_file(file_name):
         if entry.name == file_name:
             print("\n\n\t found file with the same name: '{}' \n\n stop process".format(file_name))
     print("\nEscriba su texto: ")
-    f =  open(file_name, 'w')
+    f = open(file_name, 'w')
     f.close()
 
 
@@ -98,7 +102,7 @@ def rename_file(file_name):
 
 def delete_file(file_name):
     file_exists = scan_dir(file_name)
-    #condicion para avisar opcion
+    # condicion para avisar opcion
     if file_exists:
         print("\n\n\t found file: '{}' \n\n deleting".format(file_name))
         os.remove(file_name)
@@ -116,8 +120,6 @@ def scan_dir(file_name):
     return opt
 
 
-
-
 # functiones***********************************************************************
 def mode(mode):
     if mode == 'w':
@@ -126,6 +128,7 @@ def mode(mode):
         return 'read'
     elif mode == 'a':
         return 'append'
+
 
 def take_input():
     lines_ary = []
@@ -138,30 +141,31 @@ def take_input():
     text = '\n'.join(lines_ary)
     return text
 
+
 # main**************************************************************
 def main_p():
     while True:
         print_menu()
         option = input("option: ")
-        if option == '1':
+        if option in ['1','n','new']:
             name = input('name: ')
             menu(name, 'w')
-        elif option == '2':
+        elif option in ['2', 'e', 'erase']:
             name = input('name: ')
             menu(name, 'e')
-        elif option == '3':
+        elif option in ['3', 'a', 'add']:
             name = input('name: ')
             menu(name, 'a')
-        elif option == '4':
+        elif option in ['4','read']:
             name = input('name: ')
             menu(name, 'r')
-        elif option == '5':
+        elif option in ['5','rename']:
             name = input('name: ')
             menu(name, 'rename')
-        elif option == '6':
+        elif option in ['6', 'd','delete']:
             name = input('name: ')
             menu(name, 'd')
-        elif option == '7':
+        elif option in ['7','q','quit']:
             print('exit program')
             while True:
                 opt = input('are you sure [y/n] ')
